@@ -10,3 +10,5 @@ paste the file here
 
 At the moment, the program needs to be shut down manually via the Task manager.
 If you don't want to start it everytime the computer is booted, press WIN + R, type in 'shell:startup', press ok, delete ShellStartupScript.bat
+
+Thanks for the interest :)
