@@ -12,7 +12,7 @@ namespace EyeHealth
         static void Main(string[] args)
         {
             //A notification delay with 20 minutes
-            Reminder reminder = new Reminder(1);
+            Reminder reminder = new Reminder(20);
             reminder.RemindOnCloseEyes();
             Console.ReadKey();
         }
