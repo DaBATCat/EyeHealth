@@ -16,17 +16,21 @@ namespace EyeHealth
         [DllImport("user32.dll")]
         private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
+        [DllImport("Kernel32")]
+        private static extern IntPtr GetConsoleWindow();
+
+        [DllImport("Kernel32")]
+        private static extern bool AllocConsole();
+
         private int timeWindow;
-        private IntPtr h;
         public bool IsRunning { get; set; }
         public Reminder(int timeWindowMinutes) 
         { 
-            this.timeWindow = timeWindowMinutes;
+            timeWindow = timeWindowMinutes;
 
-            //This hides the Task in the background
-            h = Process.GetCurrentProcess().MainWindowHandle;
-            ShowWindow(h, 0);
-            //-----
+            // This hides the Task in the background
+            ShowWindow(GetConsoleWindow(), 0);
+            // AllocConsole();
 
         }
 
@@ -36,7 +40,7 @@ namespace EyeHealth
             while (IsRunning)
             {
                 Task.Delay(InternalTools.SecondsInMinutes(InternalTools.SecondsInMiliseconds(timeWindow))).Wait();
-                InternalTools.DefaultToastNotification("20 Minutes up!", "Close the eyes for 30 seconds.");
+                InternalTools.DefaultToastNotification($"{timeWindow} Minutes up!", "Close the eyes for 30 seconds.");
                 Task.Delay(InternalTools.SecondsInMiliseconds(30)).Wait();
                 InternalTools.DefaultToastNotification("30 seconds up!", "You can open your eyes now.");
             }
